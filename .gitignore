@@ -1,0 +1,12 @@
+config/database.yml
+/.bundle
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/storage/*
+/node_modules
+/yarn-error.log
+/public/assets
+.byebug_history
+/config/master.key
