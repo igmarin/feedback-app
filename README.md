@@ -1,5 +1,7 @@
 # README
 
+[![Build Status](https://semaphoreci.com/api/v1/igmarin/feedback-app/branches/master/badge.svg)](https://semaphoreci.com/igmarin/feedback-app)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
