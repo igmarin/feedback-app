@@ -10,3 +10,4 @@ config/database.yml
 /public/assets
 .byebug_history
 /config/master.key
+vendor/bundle
