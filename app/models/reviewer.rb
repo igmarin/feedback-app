@@ -1,4 +1,3 @@
-class Reviewer < ApplicationRecord
-  belongs_to :performance_review
-  belongs_to :user
+class Reviewer < User
+  has_and_belongs_to_many :performance_reviews
 end

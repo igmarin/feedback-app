@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_202325) do
+ActiveRecord::Schema.define(version: 2018_06_15_204956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,16 +46,21 @@ ActiveRecord::Schema.define(version: 2018_06_15_202325) do
     t.datetime "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_performance_reviews_on_user_id"
+  end
+
+  create_table "performance_reviews_reviewers", id: false, force: :cascade do |t|
+    t.bigint "reviewer_id", null: false
+    t.bigint "performance_review_id", null: false
+    t.index ["performance_review_id", "reviewer_id"], name: "index_performace_review_reviewer"
+    t.index ["reviewer_id", "performance_review_id"], name: "index_reviewer_performace_review"
   end
 
   create_table "reviewers", force: :cascade do |t|
-    t.bigint "performance_review_id"
-    t.bigint "user_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["performance_review_id"], name: "index_reviewers_on_performance_review_id"
-    t.index ["user_id"], name: "index_reviewers_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -87,7 +92,6 @@ ActiveRecord::Schema.define(version: 2018_06_15_202325) do
   add_foreign_key "performance_answares", "performance_reviews"
   add_foreign_key "performance_questions", "performance_reviews"
   add_foreign_key "performance_review_questions", "performance_reviews"
-  add_foreign_key "reviewers", "performance_reviews"
-  add_foreign_key "reviewers", "users"
+  add_foreign_key "performance_reviews", "users"
   add_foreign_key "users", "roles"
 end
