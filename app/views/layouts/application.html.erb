@@ -11,21 +11,14 @@
   <body class="text-center">
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">Feedback App</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link" href="#">How it works</a>
-          </nav>
-        </div>
-      </header>
+      <%= render 'common/header' %>
+      <%= render 'common/flash_messages' %>
 
       <%= yield %>
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
-          <p>WIP</p>
+          <p>Feedback App</p>
         </div>
       </footer>
     </div>
