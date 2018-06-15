@@ -10,10 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_15_083743) do
+ActiveRecord::Schema.define(version: 2018_06_15_202325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "performance_answares", force: :cascade do |t|
+    t.bigint "performance_question_id"
+    t.string "question"
+    t.bigint "performance_review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performance_question_id"], name: "index_performance_answares_on_performance_question_id"
+    t.index ["performance_review_id"], name: "index_performance_answares_on_performance_review_id"
+  end
+
+  create_table "performance_questions", force: :cascade do |t|
+    t.string "question"
+    t.bigint "performance_review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performance_review_id"], name: "index_performance_questions_on_performance_review_id"
+  end
+
+  create_table "performance_review_questions", force: :cascade do |t|
+    t.string "question"
+    t.bigint "performance_review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performance_review_id"], name: "index_performance_review_questions_on_performance_review_id"
+  end
+
+  create_table "performance_reviews", force: :cascade do |t|
+    t.string "title"
+    t.datetime "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviewers", force: :cascade do |t|
+    t.bigint "performance_review_id"
+    t.bigint "user_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performance_review_id"], name: "index_reviewers_on_performance_review_id"
+    t.index ["user_id"], name: "index_reviewers_on_user_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -40,5 +83,11 @@ ActiveRecord::Schema.define(version: 2018_06_15_083743) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "performance_answares", "performance_questions"
+  add_foreign_key "performance_answares", "performance_reviews"
+  add_foreign_key "performance_questions", "performance_reviews"
+  add_foreign_key "performance_review_questions", "performance_reviews"
+  add_foreign_key "reviewers", "performance_reviews"
+  add_foreign_key "reviewers", "users"
   add_foreign_key "users", "roles"
 end
