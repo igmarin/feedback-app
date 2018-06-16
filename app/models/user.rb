@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
   belongs_to :role
-  has_many :performance_reviews
+  has_and_belongs_to_many :performance_reviews
 
   before_create :set_default_role
 

@@ -9,7 +9,7 @@ Trestle.resource(:performance_reviews) do
     column :title
     column :user
     column :due_date, align: :center
-    column :reviewers
+    column :users, label: 'Reviewers'
     actions
   end
 
@@ -20,7 +20,7 @@ Trestle.resource(:performance_reviews) do
       col(xs: 6) { text_field :title }
       col(xs: 6) { datetime_field :due_date }
       select :user_id, User.all.map { |user| [user.email, user.id]}
-      collection_select :reviewer_ids, Reviewer.all, :id, :email, { label: "Reviewer(s)" }, { multiple: true }
+      collection_select :user_ids, User.all, :id, :email, { label: "Reviewer(s)" }, { multiple: true }
     end
   end
 
