@@ -1,23 +1,27 @@
-Trestle.resource(:users) do
+Trestle.resource(:performance_reviews) do
   menu do
-    item :users, icon: "fa fa-user"
+    item :performance_reviews, icon: "fa fa-star"
   end
 
   # Customize the table columns shown on the index view.
   #
   table do
-    column :email
-    column :role
-    column :created_at, align: :center
+    column :title
+    column :user
+    column :due_date, align: :center
+    column :users, label: 'Reviewers'
     actions
   end
 
   # Customize the form fields shown on the new/edit views.
   #
-  form do |user|
-    text_field :email
-    password_field :password
-    select :role_id, Role.all.map { |role| [role.name, role.id]}
+  form do |performance_review|
+    row do
+      col(xs: 6) { text_field :title }
+      col(xs: 6) { datetime_field :due_date }
+      select :user_id, User.all.map { |user| [user.email, user.id]}
+      collection_select :user_ids, User.all, :id, :email, { label: "Reviewer(s)" }, { multiple: true }
+    end
   end
 
   # By default, all parameters passed to the update and create actions will be
@@ -28,6 +32,6 @@ Trestle.resource(:users) do
   #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
   # params do |params|
-  #   params.require(:user).permit(:name, ...)
+  #   params.require(:performance_review).permit(:name, ...)
   # end
 end
