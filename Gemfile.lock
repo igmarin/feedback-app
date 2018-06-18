@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/stympy/faker.git
+  revision: a7c03e67c18356b32a487795332c01c3d8d9add7
+  branch: master
+  specs:
+    faker (1.8.7)
+      i18n (>= 0.7)
+
+GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
   revision: 4b160bd19ecca7f97d7ac22dccd5fde9b0da5a9f
   branch: rails-5
@@ -178,7 +186,7 @@ GEM
     multi_json (1.13.1)
     multi_test (0.1.2)
     nio4r (2.3.1)
-    nokogiri (1.8.2)
+    nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     pg (1.0.0)
@@ -312,6 +320,7 @@ DEPENDENCIES
   devise (~> 4.4.3)
   devise_token_auth (~> 0.1.43)
   factory_bot_rails
+  faker!
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

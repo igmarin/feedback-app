@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_16_024806) do
+ActiveRecord::Schema.define(version: 2018_06_18_061350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "feedbacks", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "performance_review_id"
-    t.boolean "answered", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["performance_review_id"], name: "index_feedbacks_on_performance_review_id"
-    t.index ["user_id"], name: "index_feedbacks_on_user_id"
-  end
 
   create_table "performance_answares", force: :cascade do |t|
     t.bigint "performance_question_id"
@@ -52,11 +42,15 @@ ActiveRecord::Schema.define(version: 2018_06_16_024806) do
     t.index ["user_id"], name: "index_performance_reviews_on_user_id"
   end
 
-  create_table "performance_reviews_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "performance_review_id", null: false
-    t.index ["performance_review_id", "user_id"], name: "index_performance_review_user"
-    t.index ["user_id", "performance_review_id"], name: "index_user_performance_review"
+  create_table "reviewers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "performance_review_id"
+    t.date "due_date"
+    t.boolean "done", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["performance_review_id"], name: "index_reviewers_on_performance_review_id"
+    t.index ["user_id"], name: "index_reviewers_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -84,11 +78,11 @@ ActiveRecord::Schema.define(version: 2018_06_16_024806) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "feedbacks", "performance_reviews"
-  add_foreign_key "feedbacks", "users"
   add_foreign_key "performance_answares", "performance_questions"
   add_foreign_key "performance_answares", "performance_reviews"
   add_foreign_key "performance_questions", "performance_reviews"
   add_foreign_key "performance_reviews", "users"
+  add_foreign_key "reviewers", "performance_reviews"
+  add_foreign_key "reviewers", "users"
   add_foreign_key "users", "roles"
 end

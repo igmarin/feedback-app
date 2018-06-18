@@ -1,26 +1,25 @@
-Trestle.resource(:performance_reviews) do
+Trestle.resource(:reviewers) do
   menu do
-    item :performance_reviews, icon: "fa fa-star"
+    item :reviewers, icon: "fa fa-eye"
   end
 
   # Customize the table columns shown on the index view.
   #
   table do
-    column :title
-    column :user
+    column :performance_review
+    column :user, label: 'Reviewer'
+    column :user_to_be_reviewed, label: 'User to be reviewer'
     column :due_date, align: :center
-    column :reviewers_emails
+    column :done, align: :center
     actions
   end
 
   # Customize the form fields shown on the new/edit views.
   #
-  form do |performance_review|
+  form do |reviewer|
     row do
-      col(xs: 6) { text_field :title }
       col(xs: 6) { datetime_field :due_date }
-      select :user_id, User.all.map { |user| [user.email, user.id]}
-      collection_select :user_ids, User.all, :id, :email, { label: "Reviewer(s)" }, { multiple: true }
+      col(xs: 6) { check_box :done }
     end
   end
 
@@ -32,6 +31,6 @@ Trestle.resource(:performance_reviews) do
   #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
   # params do |params|
-  #   params.require(:performance_review).permit(:name, ...)
+  #   params.require(:reviewer).permit(:name, ...)
   # end
 end

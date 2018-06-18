@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :reviewer do
-    performance_review nil
     user nil
-    status "MyString"
+    performance_review nil
+    due_date "2018-06-18"
+    done false
   end
 end
