@@ -16,11 +16,20 @@ Trestle.resource(:performance_reviews) do
   # Customize the form fields shown on the new/edit views.
   #
   form do |performance_review|
-    row do
+    tab :performance_review do
       col(xs: 6) { text_field :title }
       col(xs: 6) { datetime_field :due_date }
       select :user_id, User.all.map { |user| [user.email, user.id]}
       collection_select :user_ids, User.all, :id, :email, { label: "Reviewer(s)" }, { multiple: true }
+    end
+
+    tab :performance_questions, badge: performance_review.performance_questions.size do
+      table performance_review.performance_questions, admin: :performance_questions do
+        column :question, align: :center
+        actions
+      end
+
+      concat admin_link_to("New Question", admin: :performance_questions, action: :new, params: { performance_review_id: performance_review }, class: "btn btn-success")
     end
   end
 
