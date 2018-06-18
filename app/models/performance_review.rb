@@ -1,7 +1,7 @@
 class PerformanceReview < ApplicationRecord
   belongs_to :user
   has_many :performance_questions, dependent: :destroy
-  has_many :performance_answares, dependent: :destroy
+  has_many :performance_answers, dependent: :destroy
   has_many :reviewers, dependent: :destroy
   has_many :users, through: :reviewers
 

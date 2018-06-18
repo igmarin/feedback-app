@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 2018_06_18_061350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "performance_answares", force: :cascade do |t|
+  create_table "performance_answers", force: :cascade do |t|
     t.bigint "performance_question_id"
     t.string "question"
     t.bigint "performance_review_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["performance_question_id"], name: "index_performance_answares_on_performance_question_id"
-    t.index ["performance_review_id"], name: "index_performance_answares_on_performance_review_id"
+    t.index ["performance_question_id"], name: "index_performance_answers_on_performance_question_id"
+    t.index ["performance_review_id"], name: "index_performance_answers_on_performance_review_id"
   end
 
   create_table "performance_questions", force: :cascade do |t|
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2018_06_18_061350) do
   create_table "reviewers", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "performance_review_id"
-    t.date "due_date"
+    t.datetime "due_date"
     t.boolean "done", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_061350) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "performance_answares", "performance_questions"
-  add_foreign_key "performance_answares", "performance_reviews"
+  add_foreign_key "performance_answers", "performance_questions"
+  add_foreign_key "performance_answers", "performance_reviews"
   add_foreign_key "performance_questions", "performance_reviews"
   add_foreign_key "performance_reviews", "users"
   add_foreign_key "reviewers", "performance_reviews"
